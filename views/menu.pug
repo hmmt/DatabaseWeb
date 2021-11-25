@@ -1,0 +1,28 @@
+.container
+  header.d-flex.flex-wrap.justify-content-center.py-3.mb-4.border-bottom
+    a.d-flex.align-items-center.mb-3.mb-md-0.me-md-auto.text-dark.text-decoration-none(href='/')
+      svg.bi.me-2(width='40' height='32')
+        use(xlink:href='#bootstrap')
+      span.fs-4 Simple header
+    ul.nav.nav-pills
+      li.nav-item
+        //a.nav-link.active(href='#' aria-current='page') Home
+        if currentTab == 'home'
+          a(class='nav-link active' href='/list' aria-current='page') 홈
+        else
+          a(class='nav-link' href='/list' aria-current='page') 홈
+      li.nav-item
+        if currentTab == 'bookmark'
+          a(class='nav-link active' href='/mypage' aria-current='page') 즐겨찾기
+        else
+          a(class='nav-link' href='/mypage' aria-current='page') 즐겨찾기
+      li.nav-item
+        if currentTab == 'recommend'
+          a(class='nav-link active' href='/mypage' aria-current='page') 추천목록
+        else
+          a(class='nav-link' href='/mypage' aria-current='page') 추천목록
+      li.nav-item
+        if currentTab == 'mypage'
+          a(class='nav-link active' href='/mypage' aria-current='page') 마이 페이지
+        else
+          a(class='nav-link' href='/mypage' aria-current='page') 마이 페이지
