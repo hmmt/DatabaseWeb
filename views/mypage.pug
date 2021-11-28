@@ -1,4 +1,18 @@
 extends layout
 
 block content
-  p Welcome to MyPage
+  // 저장 버튼 누르면 /modify_user 호출
+  form(action='/modify_user' method='get')
+    input(type='hidden')
+    table(class='table')
+      tr
+        th 이름
+        th= userInfo.name
+      tr
+        th 상의
+        th
+          input(type='text' id='size_top' value= userInfo.size_top)
+      tr
+        th
+        th
+          button(type='submit') 저장

@@ -1,4 +1,16 @@
 extends layout
 
 block content
-  p Welcome to Home
+  table(class='table table-bordered')
+    each val in list
+      tr
+        th(scope='col')
+          table(class='table table-borderless')
+            tr
+              th
+                | 이미지 파일
+              th
+                =val.name
+              th
+                =val.desc
+          
