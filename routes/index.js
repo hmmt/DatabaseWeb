@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+var database = require('./db');
+
 
 // 임시 유저 정보
 let userTempList = [
@@ -59,7 +61,33 @@ router.get('/mypage', function(req, res, next) {
 
   // 일단 유저는 하나만 쓰는 거라서 1로 고정
   u_id = 1;
+  // 주석 부분은 db 연결 테스트
+/*
+  var connection = database.connection();
 
+  connection.connect(function(err)
+  {
+    console.log(err);
+    connection.query('SELECT * FROM user WHERE id='+u_id, function (error, results, fields) {
+      console.log(error);
+      var selectedUser = null;
+      console.log(results);
+      for (var user of results) {
+        if(u_id == user.id)
+        {
+          selectedUser = user;
+          break;
+        }
+      }
+  
+      connection.end();
+  
+      res.render('mypage', {currentTab:'mypage', userInfo: selectedUser});
+    });
+  });
+
+  return;
+  */
   var selectedUser = null;
   for (var user of userTempList) {
     if(u_id == user.id)

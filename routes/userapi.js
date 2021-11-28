@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var mysql      = require('mysql');
+var db = require('./db');
 
 /*
 유저 정보 관련 api 기능 코드
