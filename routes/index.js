@@ -88,11 +88,11 @@ router.get('/mypage', function(req, res, next) {
     connection.query('SELECT * FROM user WHERE uid=?',
     [u_id],
     function (error, results, fields) {
-      //console.log(error);
+      console.log(error);
       var selectedUser = null;
-      //console.log(results);
+      console.log(results);
       for (var user of results) {
-        if(u_id == user.id)
+        if(u_id == user.uid)
         {
           selectedUser = user;
           break;
