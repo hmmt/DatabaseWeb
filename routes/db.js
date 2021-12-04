@@ -8,7 +8,8 @@ db.connection = function()
     user     : 'dbuser',
     password : 'database',
     
-    database : 'testdb' // 임시
+    //database : 'testdb' // 임시
+    database : 'webdb' // 임시
   });
   return output;
 }

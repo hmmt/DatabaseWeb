@@ -40,15 +40,15 @@ body
             else
               a(class='nav-link' href='/list' aria-current='page') 홈
           li.nav-item
-            if currentTab == 'bookmark'
-              a(class='nav-link active' href='/mypage' aria-current='page') 즐겨찾기
+            if currentTab == 'mark'
+              a(class='nav-link active' href='/mark' aria-current='page') 즐겨찾기
             else
-              a(class='nav-link' href='/mypage' aria-current='page') 즐겨찾기
+              a(class='nav-link' href='/mark' aria-current='page') 즐겨찾기
           li.nav-item
             if currentTab == 'recommend'
-              a(class='nav-link active' href='/mypage' aria-current='page') 추천목록
+              a(class='nav-link active' href='/recommend' aria-current='page') 추천목록
             else
-              a(class='nav-link' href='/mypage' aria-current='page') 추천목록
+              a(class='nav-link' href='/recommend' aria-current='page') 추천목록
           li.nav-item
             if currentTab == 'mypage'
               a(class='nav-link active' href='/mypage' aria-current='page') 마이 페이지

@@ -1,16 +1,27 @@
 extends layout
 
 block content
-  table(class='table table-bordered')
+  table(class='table')
+    thead
+      tr
+        th='#'
+        th
+          | 이미지
+        th
+          | 이름
+        th
+          | 브랜드
+        th
+          | 사이즈
     each val in list
       tr
-        th(scope='col')
-          table(class='table table-borderless')
-            tr
-              th
-                | 이미지 파일
-              th
-                =val.name
-              th
-                =val.desc
+        th(width=50)=val.item_id
+        td(width=120)
+          img(class='img-thumbnail', width=100, src='https://image.msscdn.net/images/goods_img/20210720/2034596/2034596_2_big.jpg')
+        td
+          =val.name
+        td
+          =val.brand
+        td
+          =val.size
           
