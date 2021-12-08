@@ -1,10 +1,32 @@
 extends layout
 
 block content
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarNav.collapse.navbar-collapse
+      ul.navbar-nav
+        li.nav-item.active
+          a.nav-link.active(href='/list?type=outer')
+            | 아우터
+        li.nav-item
+          a.nav-link(href='/list?type=top')
+            | 상의
+        li.nav-item
+          a.nav-link(href='/list?type=pants')
+            | 하의
+        li.nav-item
+          a.nav-link(href='/list?type=shoe')
+            | 신발
+        li.nav-item
+          a.nav-link(href='/list?type=hat')
+            | 모자
+            if type=='hat'
+              span.sr-only (current)
   table(class='table')
     thead
       tr
-        th='#'
+        //th='#'
         th
           | 이미지
         th
@@ -12,16 +34,54 @@ block content
         th
           | 브랜드
         th
+          | 성별
+        th
+          | 시즌
+        th
+          | 출시일
+        th
           | 사이즈
+        th
+          | 판매량
+        th
+          | 가격
     each val in list
       tr
-        th(width=50)=val.item_id
+        //th(width=50)=val.iid
+        //'https://image.msscdn.net/images/goods_img/20210720/2034596/2034596_2_big.jpg'
         td(width=120)
-          img(class='img-thumbnail', width=100, src='https://image.msscdn.net/images/goods_img/20210720/2034596/2034596_2_big.jpg')
+          img(class='img-thumbnail', width=100, src=img)
         td
           =val.name
         td
           =val.brand
         td
-          =val.size
+          =val.gender
+        td
+          =val.season
+        td
+          =val.release_year
+        td
+          |
+        td
+          =val.sales_count
+        td
+          =val.price        
+  div.container
+    ul.pagination
+      -var startPage = parseInt((page-1) / 10) * 10 +1
+      if page >= 10
+        li.page-item
+          a.page-link(href='/list?type='+type+'&page='+(startPage-1)) &laquo;
+      -for(var i=startPage; i<startPage+10; i++) 
+        if i == page
+          li.page-item.active
+            a.page-link(href='/list?type='+type+'&page='+i)
+              =i
+        else
+          li.page-item
+            a.page-link(href='/list?type='+type+'&page='+i)
+              =i
+      li.page-item
+        a.page-link(href='/list?type='+type+'&page='+(startPage+10)) &raquo;
           

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var database = require('./db');
+var querys = require('./querys')
 
 
 // 임시 유저 정보
@@ -48,14 +49,67 @@ router.get('/', function(req, res, next) {
 });
 
 
+// 모든 상품 목록
 router.get('/list', function(req, res, next) {
+
+  let page = 1;
+  let listType = 'outer';
+
+  let pageStr = req.query.page;
+  let typeStr = req.query.type;
+
+  if(pageStr != null)
+    page = Number(pageStr);
+
+  if(typeStr != null)
+    listType = typeStr;
+
+  let queryFunc = querys.selectProductOuter;
+
+  if(listType == 'outer')
+    queryFunc =querys.selectProductOuter;
+  else if(listType == 'top')
+    queryFunc =querys.selectProductTop;
+   else if(listType == 'pants')
+    queryFunc =querys.selectProductPants;
+  else if(listType == 'shoe')
+    queryFunc =querys.selectProductShoe;
+  else if(listType == 'hat')
+    queryFunc =querys.selectProductHat;
+
+
+
+  var connection = database.connection();  
+
+  connection.connect(function(err) {
+    if(err)
+    {
+      res.render('list', {currentTab:'home', list: [],
+        type: listType,
+        page: page});      
+      return;
+    }
+
+    connection.query(queryFunc(page),
+    function (error, results, fields) {;
+  
+      connection.end();
+  
+      res.render('list', {currentTab:'home', list: results,
+        type: listType,
+        page: page});
+    });
+  });
+  return;
+
+  /*
 
   var connection = database.connection();
 
   connection.connect(function(err)
   {
     console.log(err);
-    connection.query('SELECT * FROM shop_item LIMIT 20',
+    connection.query('SELECT * FROM shop_item LIMIT 20 OFFSET ?',[page],
     function (error, results, fields) {;
   
       connection.end();
@@ -65,6 +119,7 @@ router.get('/list', function(req, res, next) {
   });
 
   return;
+  */
 
   // db 없으면 여기를 대신 사용
   let itemList = ["1", "2", "3"];
