@@ -1,4 +1,68 @@
 extends layout
 
 block content
-  // 
+  table(class='table')
+    thead
+      tr
+        //th='#'
+        th
+          | 이미지
+        th
+          | 종류
+        th
+          | 이름
+        th
+          | 브랜드
+        th
+          | 성별
+        th
+          | 시즌
+        th
+          | 출시일
+        th
+          | 사이즈
+        th
+          | 판매량
+        th
+          | 가격
+    each val in list
+      tr
+        //th(width=50)=val.iid
+        //'https://image.msscdn.net/images/goods_img/20210720/2034596/2034596_2_big.jpg'
+        td(width=120)
+          img(class='img-thumbnail', width=100, src=val.img)
+        td
+          =val.type
+        td
+          =val.name
+        td
+          =val.brand
+        td
+          =val.gender
+        td
+          =val.season
+        td
+          =val.release_year
+        td
+          |
+        td
+          =val.sales_count
+        td
+          =val.price        
+  div.container
+    ul.pagination
+      -var startPage = parseInt((page-1) / 10) * 10 +1
+      if page >= 10
+        li.page-item
+          a.page-link(href='/list?type='+type+'&page='+(startPage-1)) &laquo;
+      -for(var i=startPage; i<startPage+10; i++) 
+        if i == page
+          li.page-item.active
+            a.page-link(href='/list?type='+type+'&page='+i)
+              =i
+        else
+          li.page-item
+            a.page-link(href='/list?type='+type+'&page='+i)
+              =i
+      li.page-item
+        a.page-link(href='/list?type='+type+'&page='+(startPage+10)) &raquo;

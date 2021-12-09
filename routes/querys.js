@@ -13,26 +13,45 @@ let itemPerPage = 10
 
 var querys = {
   
+  // 의류 목록 select들
   selectProductTop: function (page) {
     page -= 1;
-    return 'SELECT * FROM product_top LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
+    output = 'SELECT *, top_name as name FROM product_top LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
+    return output;
   },
   selectProductOuter : function (page) {
     page -= 1;
-    return 'SELECT * FROM product_outer LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
+    return 'SELECT *, outer_name as name FROM product_outer LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
   },
   selectProductPants : function(page) {
     page -= 1;
-    return 'SELECT * FROM product_pants LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
+    return 'SELECT *, pants_name as name FROM product_pants LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
   },
   selectProductShoe : function(page) {
     page -= 1;
-    return 'SELECT * FROM product_shoe LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
+    return 'SELECT *, shoe_name as name FROM product_shoe LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
   },
   selectProductHat : function(page) {
     page -= 1;
-    return 'SELECT * FROM product_hat LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
+    return 'SELECT *, hat_name as name FROM product_hat LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
   },
+
+  // 즐겨찾기 목록
+  selectMark : function(page) {
+    page -= 1;
+  },
+
+  // 유저 정보
+  selectUserInfo : function(id) {
+    return 'SELECT * FROM user WHERE uid='+id;
+  },
+
+  updateUserInfo : function(userInfo) {
+    return 'UPDATE user SET'
+    + ' size_top='+userInfo.size_top
+    + ', size_outer='+userInfo.size_outer
+    + ' WHERE uid ='+userInfo.id;
+  }
 };
 
 module.exports = querys;
