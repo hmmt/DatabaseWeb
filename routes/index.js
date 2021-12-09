@@ -87,12 +87,4 @@ router.get('/list', function(req, res, next) {
   */
 });
 
-router.get('/recommend', function(req, res, next) {
-  res.render('recommend', {currentTab:'recommend', list: []});
-});
-
-router.get('/mark', function(req, res, next) {
-  res.render('mark', {currentTab:'mark', list: []});
-});
-
 module.exports = router;

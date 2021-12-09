@@ -6,23 +6,48 @@ block content
       span.navbar-toggler-icon
     #navbarNav.collapse.navbar-collapse
       ul.navbar-nav
-        li.nav-item.active
-          a.nav-link.active(href='/list?type=outer')
-            | 아우터
-        li.nav-item
-          a.nav-link(href='/list?type=top')
-            | 상의
-        li.nav-item
-          a.nav-link(href='/list?type=pants')
-            | 하의
-        li.nav-item
-          a.nav-link(href='/list?type=shoe')
-            | 신발
-        li.nav-item
-          a.nav-link(href='/list?type=hat')
-            | 모자
-            if type=='hat'
-              span.sr-only (current)
+        if type=='outer'
+          li.nav-item.active
+            a.nav-link.active(href='/list?type=outer')
+              | 아우터
+        else
+          li.nav-item
+            a.nav-link(href='/list?type=outer')
+              | 아우터
+        if type=='top'
+          li.nav-item.active
+            a.nav-link.active(href='/list?type=top')
+              | 상의
+        else
+          li.nav-item
+            a.nav-link(href='/list?type=top')
+              | 상의
+        if type=='pants'
+          li.nav-item.active
+            a.nav-link.active(href='/list?type=pants')
+              | 하의
+        else
+          li.nav-item
+            a.nav-link(href='/list?type=pants')
+              | 하의
+        if type=='shoe'
+          li.nav-item.active
+            a.nav-link.active(href='/list?type=shoe')
+              | 신발
+        else
+          li.nav-item
+            a.nav-link(href='/list?type=shoe')
+              | 신발
+        if type=='hat'
+          li.nav-item.active
+            a.nav-link.active(href='/list?type=hat')
+              | 모자
+        else
+          li.nav-item
+            a.nav-link(href='/list?type=hat')
+              | 모자
+              //if type=='hat'
+                span.sr-only (current)
   table(class='table')
     thead
       tr
