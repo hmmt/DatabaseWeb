@@ -27,13 +27,17 @@ var querys = {
     page -= 1;
     return 'SELECT *, pants_name as name FROM product_pants LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
   },
-  selectProductShoe : function(page) {
+  selectProductShoes : function(page) {
     page -= 1;
     return 'SELECT *, shoe_name as name FROM product_shoe LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
   },
   selectProductHat : function(page) {
     page -= 1;
     return 'SELECT *, hat_name as name FROM product_hat LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
+  },
+
+  insertMark : function(markid, uid, id) {
+    return String.format('INSERT INTO mark (mark_id, uid, item_id) VALUES (%d, %d, %d)', markid, uid, id);
   },
 
   // 즐겨찾기 목록

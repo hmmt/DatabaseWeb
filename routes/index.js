@@ -34,8 +34,8 @@ router.get('/list', function(req, res, next) {
     queryFunc =querys.selectProductTop;
   } else if(listType == 'pants') {
     queryFunc =querys.selectProductPants;
-  } else if(listType == 'shoe') {
-    queryFunc =querys.selectProductShoe;
+  } else if(listType == 'shoes') {
+    queryFunc =querys.selectProductShoes;
   } else if(listType == 'hat') {
     queryFunc =querys.selectProductHat;
   }
@@ -66,25 +66,6 @@ router.get('/list', function(req, res, next) {
     });
   });
   return;
-
-  /*
-
-  var connection = database.connection();
-
-  connection.connect(function(err)
-  {
-    console.log(err);
-    connection.query('SELECT * FROM shop_item LIMIT 20 OFFSET ?',[page],
-    function (error, results, fields) {;
-  
-      connection.end();
-  
-      res.render('list', {currentTab:'home', list: results});
-    });
-  });
-
-  return;
-  */
 });
 
 module.exports = router;
