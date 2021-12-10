@@ -6,11 +6,11 @@ var querys = require('./querys');
 
 
 // 즐겨찾기 추가
-router.get('/add_mark', function(req, res, next) {
+router.get('/add_favorite', function(req, res, next) {
 });
 
-router.get('/mark', function(req, res, next) {
-  res.render('mark', {currentTab:'mark', list: []});
+router.get('/favorite', function(req, res, next) {
+  res.render('favorite', {currentTab:'favorite', list: []});
 });
 
 module.exports = router;

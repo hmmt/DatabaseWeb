@@ -36,8 +36,8 @@ var querys = {
     return 'SELECT *, hat_name as name FROM product_hat LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
   },
 
-  insertMark : function(markid, uid, id) {
-    return String.format('INSERT INTO mark (mark_id, uid, item_id) VALUES (%d, %d, %d)', markid, uid, id);
+  insertFavorite : function(markid, uid, id) {
+    //return String.format('INSERT INTO mark (mark_id, uid, item_id) VALUES (%d, %d, %d)', markid, uid, id);
   },
 
   // 즐겨찾기 목록
