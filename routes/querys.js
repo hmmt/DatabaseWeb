@@ -29,7 +29,7 @@ var querys = {
   },
   selectProductShoes : function(page) {
     page -= 1;
-    return 'SELECT *, shoe_name as name FROM product_shoe LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
+    return 'SELECT *, shoe_name as name FROM product_shoes LIMIT '+itemPerPage+' OFFSET '+(page*itemPerPage);
   },
   selectProductHat : function(page) {
     page -= 1;
