@@ -34,15 +34,15 @@ router.get('/list', function(req, res, next) {
   let queryFunc = querys.selectProductOuter;
 
   if(listType == 'outer') {
-    queryFunc =querys.selectProductOuterWithSize;
+    queryFunc =querys.selectProductOuter;
   } else if(listType == 'top') {
-    queryFunc =querys.selectProductTopWithSize;
+    queryFunc =querys.selectProductTop;
   } else if(listType == 'pants') {
-    queryFunc =querys.selectProductPantsWithSize;
+    queryFunc =querys.selectProductPants;
   } else if(listType == 'shoes') {
-    queryFunc =querys.selectProductShoesWithSize;
+    queryFunc =querys.selectProductShoes;
   } else if(listType == 'hat') {
-    queryFunc =querys.selectProductHatWithSize;
+    queryFunc =querys.selectProductHat;
   }
 
   queryString = queryFunc(page, orderby);
