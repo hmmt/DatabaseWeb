@@ -66,6 +66,14 @@ block content
           li.nav-item
             a.nav-link(href='/list?type='+type+'&orderby=sales')
               | 판매량순
+        if orderby=='release'
+          li.nav-item.active
+            a.nav-link.active(href='/list?type='+type+'&orderby=release')
+              | 출시일순
+        else
+          li.nav-item
+            a.nav-link(href='/list?type='+type+'&orderby=release')
+              | 출시일순
   table(class='table')
     thead
       tr

@@ -26,9 +26,12 @@ var querys = {
       orderByString = ' ORDER BY price ASC'
     else if(orderBy == 'sales')
       orderByString = ' ORDER BY sales_count DESC'
+    else if(orderBy == 'release')
+      orderByString = ' ORDER BY release_year DESC, season'
 
     return util.format('SELECT *, top_name as name FROM product_top%s LIMIT %d OFFSET %d', orderByString, itemPerPage, page*itemPerPage);
   },
+  // 지금 안 씀
   selectProductTopWithSize : function(page, orderBy) {
     page -= 1;
     var orderByString = ''
@@ -36,6 +39,8 @@ var querys = {
       orderByString = ' ORDER BY price ASC'
     else if(orderBy == 'sales')
       orderByString = ' ORDER BY sales_count DESC'
+      else if(orderBy == 'release')
+      orderByString = ' ORDER BY release_year DESC, season'
 
     return util.format(`SELECT pd.iid, pd.top_name AS \`name\`, pd.brand, pd.gender, pd.release_year, pd.season, pd.sales_count, pd.price, pd.img, goods.goods_id
 FROM (SELECT * FROM product_top%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON goods.iid=pd.iid`, orderByString, itemPerPage, page*itemPerPage);
@@ -48,10 +53,13 @@ FROM (SELECT * FROM product_top%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON good
       orderByString = ' ORDER BY price ASC'
     else if(orderBy == 'sales')
       orderByString = ' ORDER BY sales_count DESC'
+      else if(orderBy == 'release')
+      orderByString = ' ORDER BY release_year DESC, season'
 
     return util.format('SELECT *, outer_name as name FROM product_outer%s LIMIT %d OFFSET %d', orderByString, itemPerPage, page*itemPerPage);
   },
 
+  // 지금 안 씀
   selectProductOuterWithSize : function (page, orderBy) {
     page -= 1;
     var orderByString = ''
@@ -59,6 +67,8 @@ FROM (SELECT * FROM product_top%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON good
       orderByString = ' ORDER BY price ASC'
     else if(orderBy == 'sales')
       orderByString = ' ORDER BY sales_count DESC'
+    else if(orderBy == 'release')
+      orderByString = ' ORDER BY release_year DESC, season'
 
     return util.format(`SELECT pd.iid, pd.outer_name AS \`name\`, pd.brand, pd.gender, pd.release_year, pd.season, pd.sales_count, pd.price, pd.img, goods.goods_id
 FROM (SELECT * FROM product_outer%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON goods.iid=pd.iid`, orderByString, itemPerPage, page*itemPerPage);
@@ -71,10 +81,13 @@ FROM (SELECT * FROM product_outer%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON go
       orderByString = ' ORDER BY price ASC'
     else if(orderBy == 'sales')
       orderByString = ' ORDER BY sales_count DESC'
+    else if(orderBy == 'release')
+      orderByString = ' ORDER BY release_year DESC, season'
 
     return util.format('SELECT *, pants_name as name FROM product_pants%s LIMIT %d OFFSET %d', orderByString, itemPerPage, page*itemPerPage);
   },
 
+  // 지금 안 씀
   selectProductPantsWithSize : function(page, orderBy) {
     page -= 1;
     var orderByString = ''
@@ -82,6 +95,8 @@ FROM (SELECT * FROM product_outer%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON go
       orderByString = ' ORDER BY price ASC'
     else if(orderBy == 'sales')
       orderByString = ' ORDER BY sales_count DESC'
+    else if(orderBy == 'release')
+      orderByString = ' ORDER BY release_year DESC, season'
 
     return util.format(`SELECT pd.iid, pd.pants_name AS \`name\`, pd.brand, pd.gender, pd.release_year, pd.season, pd.sales_count, pd.price, pd.img, goods.goods_id
 FROM (SELECT * FROM product_pants%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON goods.iid=pd.iid`, orderByString, itemPerPage, page*itemPerPage);
@@ -93,10 +108,13 @@ FROM (SELECT * FROM product_pants%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON go
       orderByString = ' ORDER BY price ASC'
     else if(orderBy == 'sales')
       orderByString = ' ORDER BY sales_count DESC'
+    else if(orderBy == 'release')
+      orderByString = ' ORDER BY release_year DESC, season'
 
     return util.format('SELECT *, shoe_name as name FROM product_shoes%s LIMIT %d OFFSET %d', orderByString, itemPerPage, page*itemPerPage);
   },
 
+  // 지금 안 씀
   selectProductShoesWithSize : function(page, orderBy) {
     page -= 1;
     var orderByString = ''
@@ -104,6 +122,8 @@ FROM (SELECT * FROM product_pants%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON go
       orderByString = ' ORDER BY price ASC'
     else if(orderBy == 'sales')
       orderByString = ' ORDER BY sales_count DESC'
+    else if(orderBy == 'release')
+      orderByString = ' ORDER BY release_year DESC, season'
 
     return util.format(`SELECT pd.iid, pd.shoe_name AS \`name\`, pd.brand, pd.gender, pd.release_year, pd.season, pd.sales_count, pd.price, pd.img, goods.goods_id
 FROM (SELECT * FROM product_shoes%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON goods.iid=pd.iid`, orderByString, itemPerPage, page*itemPerPage);
@@ -115,10 +135,13 @@ FROM (SELECT * FROM product_shoes%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON go
       orderByString = ' ORDER BY price ASC'
     else if(orderBy == 'sales')
       orderByString = ' ORDER BY sales_count DESC'
+    else if(orderBy == 'release')
+      orderByString = ' ORDER BY release_year DESC, season'
 
     return util.format('SELECT *, hat_name as name FROM product_hat%s LIMIT %d OFFSET %d', orderByString, itemPerPage, page*itemPerPage);
   },
 
+  // 지금 안 씀
   selectProductHatWithSize : function(page, orderBy) {
     page -= 1;
     var orderByString = ''
@@ -126,6 +149,8 @@ FROM (SELECT * FROM product_shoes%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON go
       orderByString = ' ORDER BY price ASC'
     else if(orderBy == 'sales')
       orderByString = ' ORDER BY sales_count DESC'
+    else if(orderBy == 'release')
+      orderByString = ' ORDER BY release_year DESC, season'
 
     return util.format(`SELECT pd.iid, pd.hat_name AS \`name\`, pd.brand, pd.gender, pd.release_year, pd.season, pd.sales_count, pd.price, pd.img, goods.goods_id
 FROM (SELECT * FROM product_hat%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON goods.iid=pd.iid`, orderByString, itemPerPage, page*itemPerPage);
