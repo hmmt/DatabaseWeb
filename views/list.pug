@@ -91,54 +91,59 @@ block content
         th
           | 출시일
         th
-          | 사이즈
-        th
           | 판매량
         th
           | 가격
+        th
+        th
     -var previd = ''
     each val in list
       if val.iid == previd
         -continue
       -previd = val.iid
-      tr
-        td(width=120)
-          img(class='img-thumbnail', width=100, src=val.img)
-        td
-          =val.name
-        td
-          =val.brand
-        td
-          =val.gender
-        td
-          =val.season
-        td
-          =val.release_year
-        td
-          select(name='job')
-            option(value='') &#xC9C1;&#xC5C5;&#xC120;&#xD0DD;
-            option(value='학생') &#xD559;&#xC0DD;
-            option(value='회사원') &#xD68C;&#xC0AC;&#xC6D0;
-            option(value='기타') &#xAE30;&#xD0C0;
-        td
-          =val.sales_count
-        td
-          =val.price        
+      form(action='/add_favorite' method='post')
+        tr
+          td(width=120)
+            img(class='img-thumbnail', width=100, src=val.img)
+          td
+            =val.name
+          td
+            =val.brand
+          td
+            =val.gender
+          td
+            =val.season
+          td
+            =val.release_year
+          td
+            =val.sales_count
+          td
+            =val.price       
+          td
+            select(name='size_id')
+              each sv in sizeList
+                option(value=sv.size_id) 
+                  =sv.size_name 
+          td
+            //input(type='hidden' name='uid' value=userInfo.uid)
+            input(type='hidden' name='iid' value=val.iid)
+            button.btn.btn-primary(type='submit') 즐겨찾기 추가            
+
   div.container
     ul.pagination
       -var startPage = parseInt((page-1) / 10) * 10 +1
       if page >= 10
         li.page-item
-          a.page-link(href='/list?type='+type+'&page='+(startPage-1)) &laquo;
+          a.page-link(href='/list?type='+type+'&page='+(startPage-1)+'&orderby='+orderby) &laquo;
       -for(var i=startPage; i<startPage+10; i++) 
         if i == page
           li.page-item.active
-            a.page-link(href='/list?type='+type+'&page='+i)
+            a.page-link(href='/list?type='+type+'&page='+i+'&orderby='+orderby)
               =i
         else
           li.page-item
-            a.page-link(href='/list?type='+type+'&page='+i)
+            a.page-link(href='/list?type='+type+'&page='+i+'&orderby='+orderby)
               =i
       li.page-item
-        a.page-link(href='/list?type='+type+'&page='+(startPage+10)) &raquo;
+        a.page-link(href='/list?type='+type+'&page='+(startPage+10)+'&orderby='+orderby) &raquo;
           

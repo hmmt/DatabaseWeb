@@ -31,7 +31,7 @@ body
         a.d-flex.align-items-center.mb-3.mb-md-0.me-md-auto.text-dark.text-decoration-none(href='/')
           svg.bi.me-2(width='40' height='32')
             use(xlink:href='#bootstrap')
-          span.fs-4 Simple header
+          span.fs-4 나만의 옷장
         ul.nav.nav-pills
           li.nav-item
             //a.nav-link.active(href='#' aria-current='page') Home
@@ -46,14 +46,16 @@ body
               a(class='nav-link' href='/favorite' aria-current='page') 즐겨찾기
           li.nav-item
             if currentTab == 'recommend'
-              a(class='nav-link active' href='/recommend' aria-current='page') 추천목록
+              a(class='nav-link active' href='/recommend' aria-current='page') 추천
             else
-              a(class='nav-link' href='/recommend' aria-current='page') 추천목록
+              a(class='nav-link' href='/recommend' aria-current='page') 추천
           li.nav-item
             if currentTab == 'mypage'
-              a(class='nav-link active' href='/mypage' aria-current='page') 마이 페이지
+              a(class='nav-link active' href='/mypage' aria-current='page') 내 정보
             else
-              a(class='nav-link' href='/mypage' aria-current='page') 마이 페이지
-      p=queryString
+              a(class='nav-link' href='/mypage' aria-current='page') 내 정보
+      each line in queryString.split('\n')
+        =line
+        br
       block content
   script(src='/javascript/bootstrap/bootstrap.bundle.min.js')  

@@ -1,14 +1,57 @@
 extends layout
 
 block content
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    #navbarNav.collapse.navbar-collapse
+      ul.navbar-nav
+        if type=='outer'
+          li.nav-item.active
+            a.nav-link.active(href='/favorite?type=outer')
+              | 아우터
+        else
+          li.nav-item
+            a.nav-link(href='/favorite?type=outer')
+              | 아우터
+        if type=='top'
+          li.nav-item.active
+            a.nav-link.active(href='/favorite?type=top')
+              | 상의
+        else
+          li.nav-item
+            a.nav-link(href='/favorite?type=top')
+              | 상의
+        if type=='pants'
+          li.nav-item.active
+            a.nav-link.active(href='/favorite?type=pants')
+              | 하의
+        else
+          li.nav-item
+            a.nav-link(href='/favorite?type=pants')
+              | 하의
+        if type=='shoes'
+          li.nav-item.active
+            a.nav-link.active(href='/favorite?type=shoes')
+              | 신발
+        else
+          li.nav-item
+            a.nav-link(href='/favorite?type=shoes')
+              | 신발
+        if type=='hat'
+          li.nav-item.active
+            a.nav-link.active(href='/favorite?type=hat')
+              | 모자
+        else
+          li.nav-item
+            a.nav-link(href='/favorite?type=hat')
+              | 모자
+              //if type=='hat'
+                span.sr-only (current)
   table(class='table')
     thead
       tr
         //th='#'
         th
           | 이미지
-        th
-          | 종류
         th
           | 이름
         th
@@ -20,19 +63,15 @@ block content
         th
           | 출시일
         th
-          | 사이즈
-        th
           | 판매량
         th
           | 가격
+        th 
+          | 사이즈
     each val in list
       tr
-        //th(width=50)=val.iid
-        //'https://image.msscdn.net/images/goods_img/20210720/2034596/2034596_2_big.jpg'
         td(width=120)
           img(class='img-thumbnail', width=100, src=val.img)
-        td
-          =val.type
         td
           =val.name
         td
@@ -44,25 +83,26 @@ block content
         td
           =val.release_year
         td
-          |
-        td
           =val.sales_count
         td
-          =val.price        
+          =val.price       
+        td
+
   div.container
     ul.pagination
       -var startPage = parseInt((page-1) / 10) * 10 +1
       if page >= 10
         li.page-item
-          a.page-link(href='/list?type='+type+'&page='+(startPage-1)) &laquo;
+          a.page-link(href='/favorite?type='+type+'&page='+(startPage-1)) &laquo;
       -for(var i=startPage; i<startPage+10; i++) 
         if i == page
           li.page-item.active
-            a.page-link(href='/list?type='+type+'&page='+i)
+            a.page-link(href='/favorite?type='+type+'&page='+i)
               =i
         else
           li.page-item
-            a.page-link(href='/list?type='+type+'&page='+i)
+            a.page-link(href='/favorite?type='+type+'&page='+i)
               =i
       li.page-item
-        a.page-link(href='/list?type='+type+'&page='+(startPage+10)) &raquo;
+        a.page-link(href='/favorite?type='+type+'&page='+(startPage+10)) &raquo;
+          

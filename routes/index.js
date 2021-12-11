@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
 // 모든 상품 목록
 router.get('/list', function(req, res, next) {
 
+  let uid = 1;
   let page = 1;
   let listType = 'outer';
   let orderby = 'price';
@@ -32,20 +33,28 @@ router.get('/list', function(req, res, next) {
     orderby = orderbyStr;
 
   let queryFunc = querys.selectProductOuter;
+  let querySizeFunc = querys.selectSizeOuter;
 
   if(listType == 'outer') {
     queryFunc =querys.selectProductOuter;
+    querySizeFunc = querys.selectSizeOuter;
   } else if(listType == 'top') {
     queryFunc =querys.selectProductTop;
+    querySizeFunc = querys.selectSizeTop;
   } else if(listType == 'pants') {
     queryFunc =querys.selectProductPants;
+    querySizeFunc = querys.selectSizePants;
   } else if(listType == 'shoes') {
     queryFunc =querys.selectProductShoes;
+    querySizeFunc = querys.selectSizeShoes;
   } else if(listType == 'hat') {
     queryFunc =querys.selectProductHat;
+    querySizeFunc = querys.selectSizeHat;
   }
 
-  queryString = queryFunc(page, orderby);
+  
+
+  var listQueryString = queryFunc(page, orderby);
 
 
 
@@ -54,24 +63,37 @@ router.get('/list', function(req, res, next) {
   connection.connect(function(err) {
     if(err)
     {
-      res.render('list', {currentTab:'home', list: [],
+      res.render('list', {currentTab:'home',
+        uid: uid,
+        list: [],
+        sizeList: [],
         type: listType,
         page: page,
         orderby: orderby});      
       return;
     }
 
-    connection.query(queryString,
+    //
+    connection.query(listQueryString,
     function (error, results, fields) {;
-  
-      connection.end();
 
-      console.log(error);
-  
-      res.render('list', {currentTab:'home', list: results,
-        type: listType,
-        page: page,
-        orderby: orderby});
+      var addedQueryString = querySizeFunc();
+      connection.query(addedQueryString, function(error, resultsSize, fields) {
+
+        connection.end();
+
+        queryString = listQueryString + '\n' + addedQueryString;
+
+        console.log(error);
+    
+        res.render('list', {currentTab:'home',
+          uid: uid,
+          list: results,
+          sizeList: resultsSize,
+          type: listType,
+          page: page,
+          orderby: orderby});
+      });
     });
   });
   return;

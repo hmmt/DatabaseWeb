@@ -1,6 +1,6 @@
 const { URITooLong } = require('http-errors');
 var database = require('./db');
-var util = require('util')
+var util = require('util');
 
 let itemPerPage = 10
 
@@ -17,6 +17,21 @@ var querys = {
   },
 
 
+  selectSizeHat: function() {
+    return 'SELECT *, size_hat_id as size_id FROM size_hat';
+  },
+  selectSizeOuter: function() {
+    return 'SELECT *, size_outer_id as size_id FROM size_outer';
+  },
+  selectSizePants: function() {
+    return 'SELECT *, size_pants_id as size_id FROM size_pants';
+  },
+  selectSizeShoes: function() {
+    return 'SELECT *, size_shoes_id FROM size_shoes';
+  },
+  selectSizeTop: function() {
+    return 'SELECT *, size_top_id FROM size_top';
+  },
   
   // 의류 목록 select들
   selectProductTop: function (page, orderBy) {
@@ -156,13 +171,100 @@ FROM (SELECT * FROM product_shoes%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON go
 FROM (SELECT * FROM product_hat%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON goods.iid=pd.iid`, orderByString, itemPerPage, page*itemPerPage);
   },
 
-  insertFavorite : function(markid, uid, id) {
-    //return String.format('INSERT INTO mark (mark_id, uid, item_id) VALUES (%d, %d, %d)', markid, uid, id);
+  insertFavorite : function(uid, iid, size_id) {
+    //return String.format('insert into favorite (uid,goods_id) VALUE(\'%s\', \'goods_id\')', markid, uid, id);
+    return util.format(`INSERT INTO favorite(uid, goods_id)
+ SELECT %d, goods_id
+ FROM goods
+ WHERE iid = '%s' AND size_id = %d`, uid, iid, size_id);
   },
 
   // 즐겨찾기 목록
-  selectMark : function(page) {
+  selectFavoriteWithProductOuter : function(uid, page) {
     page -= 1;
+    //SELECT
+    return util.format(`SELECT * FROM product_outer
+ WHERE product_outer.iid IN (SELECT goods.iid
+  FROM webdb.favorite
+  INNER JOIN webdb.goods
+  ON favorite.uid=%d AND favorite.goods_id = goods.goods_id)
+ LIMIT %d OFFSET %d`, uid, itemPerPage, page*itemPerPage);
+  },
+  selectFavoriteWithProductTop : function(uid, page) {
+    page -= 1;
+    //SELECT
+    return util.format(`SELECT * FROM product_top
+ WHERE product_top.iid IN (SELECT goods.iid
+  FROM webdb.favorite
+  INNER JOIN webdb.goods
+  ON favorite.uid=%d AND favorite.goods_id = goods.goods_id)
+ LIMIT %d OFFSET %d`, uid, itemPerPage, page*itemPerPage);
+  },
+  selectFavoriteWithProductPants : function(uid, page) {
+    page -= 1;
+    //SELECT
+    return util.format(`SELECT * FROM product_pants
+ WHERE product_pants.iid IN (SELECT goods.iid
+  FROM webdb.favorite
+  INNER JOIN webdb.goods
+  ON favorite.uid=%d AND favorite.goods_id = goods.goods_id)
+ LIMIT %d OFFSET %d`, uid, itemPerPage, page*itemPerPage);
+  },
+  selectFavoriteWithProductShoes : function(uid, page) {
+    page -= 1;
+    //SELECT
+    return util.format(`SELECT * FROM product_shoes
+ WHERE product_shoes.iid IN (SELECT goods.iid
+  FROM webdb.favorite
+  INNER JOIN webdb.goods
+  ON favorite.uid=%d AND favorite.goods_id = goods.goods_id)
+ LIMIT %d OFFSET %d`, uid, itemPerPage, page*itemPerPage);
+  },
+  selectFavoriteWithProductHat : function(uid, page) {
+    page -= 1;
+    //SELECT
+    return util.format(`SELECT * FROM product_hat
+ WHERE product_outer.iid IN (SELECT goods.iid
+  FROM webdb.favorite
+  INNER JOIN webdb.goods
+  ON favorite.uid=%d AND favorite.goods_id = goods.goods_id)
+ LIMIT %d OFFSET %d`, uid, itemPerPage, page*itemPerPage);
+  },
+
+  // 코디 추천?
+  selectReccommend : function(uid) {
+    return util.format(`SELECT coordinate_id, uid, coordinate.hat_id, coordinate.outer_id, coordinate.top_id, coordinate.pants_id, coordinate.shoes_id,
+product_hat.hat_name, product_outer.outer_name, product_top.top_name,
+product_pants.pants_name, product_shoes.shoe_name,
+product_hat.img AS hat_img, product_outer.img AS outer_img, product_top.img AS top_img,
+product_pants.img AS pants_img, product_shoes.img AS shoes_img
+FROM coordinate
+LEFT JOIN product_outer ON product_outer.iid = coordinate.outer_id
+LEFT JOIN product_top ON product_top.iid = coordinate.top_id
+LEFT JOIN product_hat ON product_hat.iid = coordinate.hat_id
+LEFT JOIN product_pants ON product_pants.iid = coordinate.pants_id
+LEFT JOIN product_shoes ON product_shoes.iid = coordinate.shoes_id
+
+WHERE (hat_id in (select iid from goods WHERE goods_id in (SELECT goods_id FROM favorite WHERE uid = %d)) OR 
+outer_id in (select iid from goods WHERE goods_id in (SELECT goods_id FROM favorite WHERE uid = %d)) OR
+pants_id in (select iid from goods WHERE goods_id in (SELECT goods_id FROM favorite WHERE uid = %d)) OR
+shoes_id in (select iid from goods WHERE goods_id in (SELECT goods_id FROM favorite WHERE uid = %d)) OR
+top_id in (select iid from goods WHERE goods_id in (SELECT goods_id FROM favorite WHERE uid = %d)))`, uid);
+  },
+
+  selectAllCoordinate : function() {
+    return util.format(`SELECT coordinate_id, uid, coordinate.hat_id, coordinate.outer_id, coordinate.top_id, coordinate.pants_id, coordinate.shoes_id,
+product_hat.hat_name, product_outer.outer_name, product_top.top_name,
+product_pants.pants_name, product_shoes.shoe_name,
+product_hat.img AS hat_img, product_outer.img AS outer_img, product_top.img AS top_img,
+product_pants.img AS pants_img, product_shoes.img AS shoes_img
+FROM coordinate
+LEFT JOIN product_outer ON product_outer.iid = coordinate.outer_id
+LEFT JOIN product_top ON product_top.iid = coordinate.top_id
+LEFT JOIN product_hat ON product_hat.iid = coordinate.hat_id
+LEFT JOIN product_pants ON product_pants.iid = coordinate.pants_id
+LEFT JOIN product_shoes ON product_shoes.iid = coordinate.shoes_id
+    `);
   },
 
   // 유저 정보

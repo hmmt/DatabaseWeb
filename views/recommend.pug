@@ -1,5 +1,46 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  table(class='table')
+    thead
+      tr
+        th='#'
+        th='사용자'
+        td(width=150, align='center')
+          b
+            | 모자
+        td(width=150, align='center')
+          b
+            | 아웃터
+        td(width=150, align='center')
+          b
+            | 상의
+        td(width=150, align='center')
+          b
+            | 하의
+        td(width=150, align='center')
+          b
+            | 신발
+    each val in list
+      tr
+        td(width=10, rowspan=2, valign='middle')
+          =val.coordinate_id
+        td(width=50, rowspan=2, valign='middle', align='center')
+          =val.uid
+        td(width=150, align='center')
+          img(class='img-thumbnail', width=100, src=val.hat_img)
+        td(width=150, align='center')
+          img(class='img-thumbnail', width=100, src=val.outer_img)
+        td(width=150, align='center')
+          img(class='img-thumbnail', width=100, src=val.top_img)
+        td(width=150, align='center')
+          img(class='img-thumbnail', width=100, src=val.pants_img)
+        td(width=150, align='center')
+          img(class='img-thumbnail', width=100, src=val.shoes_img)
+      tr        
+        td(width=150, align='center')=val.hat_name
+        td(width=150, align='center')=val.outer_name
+        td(width=150, align='center')=val.top_name
+        td(width=150, align='center')=val.pants_name
+        td(width=150, align='center')=val.shoes_name
+          
