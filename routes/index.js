@@ -66,10 +66,7 @@ router.get('/list', function(req, res, next) {
   
       connection.end();
 
-      console.log(error)
-
-      
-
+      console.log(error);
   
       res.render('list', {currentTab:'home', list: results,
         type: listType,

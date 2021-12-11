@@ -2,8 +2,8 @@ extends layout
 
 block content
   // 저장 버튼 누르면 /modify_user 호출
-  form(action='/modify_user' method='get')
-    input(type='hidden')
+  form(action='/modify_user' method='post')
+    input(type='hidden' name='uid' value=userInfo.uid)
     table(class='table')
       tr
         th 이름
@@ -11,23 +11,19 @@ block content
       tr
         th 상의
         td
-          input(type='text' id='size_top' value= userInfo.size_top)
+          input(type='text' name='size_top' value= userInfo.size_top)
       tr
         th 하의
         td
-          input(type='text' id='size_bottoms' value= userInfo.size_top)
+          input(type='text' name='size_bottoms' value= userInfo.size_bottoms)
       tr
         th 신발
         td
-          input(type='text' id='size_shoes' value= userInfo.size_top)
-      tr
-        th 모자
-        td
-          input(type='text' id='size_hat' value= userInfo.size_top)
+          input(type='text' name='size_shoes' value= userInfo.size_shoes)
       tr
         th 아우터
         td
-          input(type='text' id='size_outer' value= userInfo.size_top)
+          input(type='text' name='size_outer' value= userInfo.size_outer)
       tr
         th
         td

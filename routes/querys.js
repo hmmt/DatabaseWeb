@@ -2,18 +2,21 @@ const { URITooLong } = require('http-errors');
 var database = require('./db');
 var util = require('util')
 
-
-var que = {
-
-  execute: function (query, parms, callback) {
-  },
-  select: function (query, parms, callback) {
-  },
-};
-
 let itemPerPage = 10
 
 var querys = {
+
+  queryStr: '',
+
+  addQueryLog: function(str) {
+    querys.queryStr += str;
+  },
+
+  clearQueryLog: function() {
+    querys.queryStr = '';
+  },
+
+
   
   // 의류 목록 select들
   selectProductTop: function (page, orderBy) {
@@ -142,11 +145,10 @@ FROM (SELECT * FROM product_hat%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON good
     return 'SELECT * FROM user WHERE uid='+id;
   },
 
-  updateUserInfo : function(userInfo) {
-    return 'UPDATE user SET'
-    + ' size_top='+userInfo.size_top
-    + ', size_outer='+userInfo.size_outer
-    + ' WHERE uid ='+userInfo.id;
+  updateUserInfo : function(uid, size_top, size_bottoms, size_shoes, size_outer) {
+    return util.format(`UPDATE user SET
+size_top=%d, size_bottoms=%d, size_shoes=%d, size_outer=%d WHERE uid=%d`,
+size_top, size_bottoms, size_shoes, size_outer, uid);
   }
 };
 
