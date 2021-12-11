@@ -16,9 +16,11 @@ router.get('/list', function(req, res, next) {
 
   let page = 1;
   let listType = 'outer';
+  let orderby = 'price';
 
   let pageStr = req.query.page;
   let typeStr = req.query.type;
+  let orderbyStr = req.query.orderby;
 
   if(pageStr != null)
     page = Number(pageStr);
@@ -26,21 +28,24 @@ router.get('/list', function(req, res, next) {
   if(typeStr != null)
     listType = typeStr;
 
+  if(orderbyStr != null)
+    orderby = orderbyStr;
+
   let queryFunc = querys.selectProductOuter;
 
   if(listType == 'outer') {
-    queryFunc =querys.selectProductOuter;
+    queryFunc =querys.selectProductOuterWithSize;
   } else if(listType == 'top') {
-    queryFunc =querys.selectProductTop;
+    queryFunc =querys.selectProductTopWithSize;
   } else if(listType == 'pants') {
-    queryFunc =querys.selectProductPants;
+    queryFunc =querys.selectProductPantsWithSize;
   } else if(listType == 'shoes') {
-    queryFunc =querys.selectProductShoes;
+    queryFunc =querys.selectProductShoesWithSize;
   } else if(listType == 'hat') {
-    queryFunc =querys.selectProductHat;
+    queryFunc =querys.selectProductHatWithSize;
   }
 
-  queryString = queryFunc(page);
+  queryString = queryFunc(page, orderby);
 
 
 
@@ -51,7 +56,8 @@ router.get('/list', function(req, res, next) {
     {
       res.render('list', {currentTab:'home', list: [],
         type: listType,
-        page: page});      
+        page: page,
+        orderby: orderby});      
       return;
     }
 
@@ -59,10 +65,16 @@ router.get('/list', function(req, res, next) {
     function (error, results, fields) {;
   
       connection.end();
+
+      console.log(error)
+
+      
+
   
       res.render('list', {currentTab:'home', list: results,
         type: listType,
-        page: page});
+        page: page,
+        orderby: orderby});
     });
   });
   return;

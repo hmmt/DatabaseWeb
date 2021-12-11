@@ -2,52 +2,70 @@ extends layout
 
 block content
   nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
-      span.navbar-toggler-icon
     #navbarNav.collapse.navbar-collapse
       ul.navbar-nav
         if type=='outer'
           li.nav-item.active
-            a.nav-link.active(href='/list?type=outer')
+            a.nav-link.active(href='/list?type=outer&orderby='+orderby)
               | 아우터
         else
           li.nav-item
-            a.nav-link(href='/list?type=outer')
+            a.nav-link(href='/list?type=outer&orderby='+orderby)
               | 아우터
         if type=='top'
           li.nav-item.active
-            a.nav-link.active(href='/list?type=top')
+            a.nav-link.active(href='/list?type=top&orderby='+orderby)
               | 상의
         else
           li.nav-item
-            a.nav-link(href='/list?type=top')
+            a.nav-link(href='/list?type=top&orderby='+orderby)
               | 상의
         if type=='pants'
           li.nav-item.active
-            a.nav-link.active(href='/list?type=pants')
+            a.nav-link.active(href='/list?type=pants&orderby='+orderby)
               | 하의
         else
           li.nav-item
-            a.nav-link(href='/list?type=pants')
+            a.nav-link(href='/list?type=pants&orderby='+orderby)
               | 하의
         if type=='shoes'
           li.nav-item.active
-            a.nav-link.active(href='/list?type=shoes')
+            a.nav-link.active(href='/list?type=shoes&orderby='+orderby)
               | 신발
         else
           li.nav-item
-            a.nav-link(href='/list?type=shoes')
+            a.nav-link(href='/list?type=shoes&orderby='+orderby)
               | 신발
         if type=='hat'
           li.nav-item.active
-            a.nav-link.active(href='/list?type=hat')
+            a.nav-link.active(href='/list?type=hat&orderby='+orderby)
               | 모자
         else
           li.nav-item
-            a.nav-link(href='/list?type=hat')
+            a.nav-link(href='/list?type=hat&orderby='+orderby)
               | 모자
               //if type=='hat'
                 span.sr-only (current)
+  nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    #navbarNav.collapse.navbar-collapse
+      ul.navbar-nav
+        -console.log(orderby)
+        if orderby=='price'
+          li.nav-item.active
+            a.nav-link.active(href='/list?type='+type+'&orderby=price')
+             | 가격순
+        else
+          li.nav-item
+            a.nav-link(href='/list?type='+type+'&orderby=price')
+              | 가격순
+        if orderby=='sales'
+          li.nav-item.active
+            a.nav-link.active(href='/list?type='+type+'&orderby=sales')
+              | 판매량순
+        else
+          li.nav-item
+            a.nav-link(href='/list?type='+type+'&orderby=sales')
+              | 판매량순
   table(class='table')
     thead
       tr
@@ -70,10 +88,12 @@ block content
           | 판매량
         th
           | 가격
+    -var previd = ''
     each val in list
+      if val.iid == previd
+        -continue
+      -previd = val.iid
       tr
-        //th(width=50)=val.iid
-        //'https://image.msscdn.net/images/goods_img/20210720/2034596/2034596_2_big.jpg'
         td(width=120)
           img(class='img-thumbnail', width=100, src=val.img)
         td
