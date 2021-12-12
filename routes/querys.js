@@ -27,10 +27,10 @@ var querys = {
     return 'SELECT *, size_pants_id as size_id FROM size_pants';
   },
   selectSizeShoes: function() {
-    return 'SELECT *, size_shoes_id FROM size_shoes';
+    return 'SELECT *, size_shoes_id as size_id FROM size_shoes';
   },
   selectSizeTop: function() {
-    return 'SELECT *, size_top_id FROM size_top';
+    return 'SELECT *, size_top_id as size_id FROM size_top';
   },
   
   // 의류 목록 select들

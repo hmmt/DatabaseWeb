@@ -95,9 +95,9 @@ router.post('/add_favorite', function(req, res, next) {
 
           var text = '해당 사이즈의 상품이 없습니다.';
 
-          if(results.affectedRows > 0)
+          //if(results.affectedRows > 0)
           {
-            text = '추가됨';
+            //text = '추가됨';
           }
       
           connection.end();
