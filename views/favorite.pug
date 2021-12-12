@@ -66,8 +66,6 @@ block content
           | 판매량
         th
           | 가격
-        th 
-          | 사이즈
     each val in list
       tr
         td(width=120)
@@ -85,8 +83,7 @@ block content
         td
           =val.sales_count
         td
-          =val.price       
-        td
+          =val.price
 
   div.container
     ul.pagination

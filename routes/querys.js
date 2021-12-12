@@ -183,50 +183,50 @@ FROM (SELECT * FROM product_hat%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON good
   selectFavoriteWithProductOuter : function(uid, page) {
     page -= 1;
     //SELECT
-    return util.format(`SELECT * FROM product_outer
+    return util.format(`SELECT *, outer_name as name  FROM product_outer
  WHERE product_outer.iid IN (SELECT goods.iid
-  FROM webdb.favorite
-  INNER JOIN webdb.goods
+  FROM favorite
+  INNER JOIN goods
   ON favorite.uid=%d AND favorite.goods_id = goods.goods_id)
  LIMIT %d OFFSET %d`, uid, itemPerPage, page*itemPerPage);
   },
   selectFavoriteWithProductTop : function(uid, page) {
     page -= 1;
     //SELECT
-    return util.format(`SELECT * FROM product_top
+    return util.format(`SELECT *, top_name as name  FROM product_top
  WHERE product_top.iid IN (SELECT goods.iid
-  FROM webdb.favorite
-  INNER JOIN webdb.goods
+  FROM favorite
+  INNER JOIN goods
   ON favorite.uid=%d AND favorite.goods_id = goods.goods_id)
  LIMIT %d OFFSET %d`, uid, itemPerPage, page*itemPerPage);
   },
   selectFavoriteWithProductPants : function(uid, page) {
     page -= 1;
     //SELECT
-    return util.format(`SELECT * FROM product_pants
+    return util.format(`SELECT *, pants_name as name  FROM product_pants
  WHERE product_pants.iid IN (SELECT goods.iid
-  FROM webdb.favorite
-  INNER JOIN webdb.goods
+  FROM favorite
+  INNER JOIN goods
   ON favorite.uid=%d AND favorite.goods_id = goods.goods_id)
  LIMIT %d OFFSET %d`, uid, itemPerPage, page*itemPerPage);
   },
   selectFavoriteWithProductShoes : function(uid, page) {
     page -= 1;
     //SELECT
-    return util.format(`SELECT * FROM product_shoes
+    return util.format(`SELECT *, shoes_name as name  FROM product_shoes
  WHERE product_shoes.iid IN (SELECT goods.iid
-  FROM webdb.favorite
-  INNER JOIN webdb.goods
+  FROM favorite
+  INNER JOIN goods
   ON favorite.uid=%d AND favorite.goods_id = goods.goods_id)
  LIMIT %d OFFSET %d`, uid, itemPerPage, page*itemPerPage);
   },
   selectFavoriteWithProductHat : function(uid, page) {
     page -= 1;
     //SELECT
-    return util.format(`SELECT * FROM product_hat
+    return util.format(`SELECT *, hat_name as name FROM product_hat
  WHERE product_hat.iid IN (SELECT goods.iid
-  FROM webdb.favorite
-  INNER JOIN webdb.goods
+  FROM favorite
+  INNER JOIN goods
   ON favorite.uid=%d AND favorite.goods_id = goods.goods_id)
  LIMIT %d OFFSET %d`, uid, itemPerPage, page*itemPerPage);
   },
