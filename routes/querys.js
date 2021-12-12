@@ -267,6 +267,11 @@ LEFT JOIN product_shoes ON product_shoes.iid = coordinate.shoes_id
     `);
   },
 
+  // 코디 찜하기
+  updateCoordiCount : function(coordId) {
+    return 'UPDATE coordinate SET `count`=`count`+1 WHERE coordinate_id='+coordId;
+  },
+
   // 유저 정보
   selectUserInfo : function(id) {
     return 'SELECT * FROM user WHERE uid='+id;

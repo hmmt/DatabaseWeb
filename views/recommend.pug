@@ -21,26 +21,33 @@ block content
         td(width=150, align='center')
           b
             | 신발
+        td(width=30)
+          b
     each val in list
       tr
         td(width=10, rowspan=2, valign='middle')
           =val.coordinate_id
         td(width=50, rowspan=2, valign='middle', align='center')
           =val.uid
-        td(width=150, align='center')
+        td(width=140, align='center')
           img(class='img-thumbnail', width=100, src=val.hat_img)
-        td(width=150, align='center')
+        td(width=140, align='center')
           img(class='img-thumbnail', width=100, src=val.outer_img)
-        td(width=150, align='center')
+        td(width=140, align='center')
           img(class='img-thumbnail', width=100, src=val.top_img)
-        td(width=150, align='center')
+        td(width=140, align='center')
           img(class='img-thumbnail', width=100, src=val.pants_img)
-        td(width=150, align='center')
+        td(width=140, align='center')
           img(class='img-thumbnail', width=100, src=val.shoes_img)
+        td(width=100, rowspan=2, valign='middle')
+          form(action='/recommend_favorite' method='post')
+            input(type='hidden' name='coordinate_id' value=val.coordinate_id)
+            button.btn.btn-primary(type='submit') 좋아요   
       tr        
-        td(width=150, align='center')=val.hat_name
-        td(width=150, align='center')=val.outer_name
-        td(width=150, align='center')=val.top_name
-        td(width=150, align='center')=val.pants_name
-        td(width=150, align='center')=val.shoes_name
+        td(width=140, align='center')=val.hat_name
+        td(width=140, align='center')=val.outer_name
+        td(width=140, align='center')=val.top_name
+        td(width=140, align='center')=val.pants_name
+        td(width=140, align='center')=val.shoes_name    
+
           
