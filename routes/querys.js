@@ -224,7 +224,7 @@ FROM (SELECT * FROM product_hat%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON good
     page -= 1;
     //SELECT
     return util.format(`SELECT * FROM product_hat
- WHERE product_outer.iid IN (SELECT goods.iid
+ WHERE product_hat.iid IN (SELECT goods.iid
   FROM webdb.favorite
   INNER JOIN webdb.goods
   ON favorite.uid=%d AND favorite.goods_id = goods.goods_id)
