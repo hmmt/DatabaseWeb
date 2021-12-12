@@ -126,7 +126,7 @@ FROM (SELECT * FROM product_pants%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON go
     else if(orderBy == 'release')
       orderByString = ' ORDER BY release_year DESC, season'
 
-    return util.format('SELECT *, shoe_name as name FROM product_shoes%s LIMIT %d OFFSET %d', orderByString, itemPerPage, page*itemPerPage);
+    return util.format('SELECT *, shoes_name as name FROM product_shoes%s LIMIT %d OFFSET %d', orderByString, itemPerPage, page*itemPerPage);
   },
 
   // 지금 안 씀
@@ -140,7 +140,7 @@ FROM (SELECT * FROM product_pants%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON go
     else if(orderBy == 'release')
       orderByString = ' ORDER BY release_year DESC, season'
 
-    return util.format(`SELECT pd.iid, pd.shoe_name AS \`name\`, pd.brand, pd.gender, pd.release_year, pd.season, pd.sales_count, pd.price, pd.img, goods.goods_id
+    return util.format(`SELECT pd.iid, pd.shoes_name AS \`name\`, pd.brand, pd.gender, pd.release_year, pd.season, pd.sales_count, pd.price, pd.img, goods.goods_id
 FROM (SELECT * FROM product_shoes%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON goods.iid=pd.iid`, orderByString, itemPerPage, page*itemPerPage);
   },
   selectProductHat : function(page, orderBy) {
@@ -235,7 +235,7 @@ FROM (SELECT * FROM product_hat%s LIMIT %d OFFSET %d) pd LEFT JOIN goods ON good
   selectReccommend : function(uid) {
     return util.format(`SELECT coordinate_id, uid, coordinate.hat_id, coordinate.outer_id, coordinate.top_id, coordinate.pants_id, coordinate.shoes_id,
 product_hat.hat_name, product_outer.outer_name, product_top.top_name,
-product_pants.pants_name, product_shoes.shoe_name,
+product_pants.pants_name, product_shoes.shoes_name,
 product_hat.img AS hat_img, product_outer.img AS outer_img, product_top.img AS top_img,
 product_pants.img AS pants_img, product_shoes.img AS shoes_img
 FROM coordinate
@@ -255,7 +255,7 @@ top_id in (select iid from goods WHERE goods_id in (SELECT goods_id FROM favorit
   selectAllCoordinate : function() {
     return util.format(`SELECT coordinate_id, uid, coordinate.hat_id, coordinate.outer_id, coordinate.top_id, coordinate.pants_id, coordinate.shoes_id,
 product_hat.hat_name, product_outer.outer_name, product_top.top_name,
-product_pants.pants_name, product_shoes.shoe_name,
+product_pants.pants_name, product_shoes.shoes_name,
 product_hat.img AS hat_img, product_outer.img AS outer_img, product_top.img AS top_img,
 product_pants.img AS pants_img, product_shoes.img AS shoes_img
 FROM coordinate
