@@ -4,7 +4,6 @@ block content
   table(class='table')
     thead
       tr
-        th='#'
         th='사용자'
         td(width=150, align='center')
           b
@@ -25,8 +24,6 @@ block content
           b
     each val in list
       tr
-        td(width=10, rowspan=2, valign='middle')
-          =val.coordinate_id
         td(width=50, rowspan=2, valign='middle', align='center')
           =val.uid
         td(width=140, align='center')
